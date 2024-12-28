@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "lDnr3YZZBCZNsiWYfErzeFwCUi9PKqowVJSaK4rknRw=",
+  "Source": "GitHubAuthenticationWithASPNET",
+  "BasePath": "_content/GitHubAuthenticationWithASPNET",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
