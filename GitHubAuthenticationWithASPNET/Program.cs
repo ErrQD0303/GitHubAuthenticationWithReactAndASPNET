@@ -27,6 +27,16 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod()
             .AllowCredentials();
     });
+
+    options.AddPolicy("AllowLocalhost", policy =>
+    {
+        var frontendUrl = Environment.GetEnvironmentVariable("FRONTEND_URL") ?? builder.Configuration["FrontendUrl"];
+        System.Console.WriteLine($"FRONTEND_URL: {frontendUrl}");
+        policy.WithOrigins(frontendUrl!)
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
 });
 
 var env = builder.Environment;
