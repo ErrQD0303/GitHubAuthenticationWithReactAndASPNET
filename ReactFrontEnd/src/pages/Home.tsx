@@ -1,10 +1,17 @@
 import { useFetcher, useOutletContext } from "react-router-dom";
 import { IAppLayoutContext } from "../types/app";
+import { useCookies } from "react-cookie";
 
 function Home() {
   const {
     appLoader: { accessToken },
   } = useOutletContext<IAppLayoutContext>();
+
+  const [, setCookie] = useCookies(["access_token"]);
+  if (accessToken) {
+    console.log("Setting access token" + accessToken);
+    setCookie("access_token", accessToken);
+  }
 
   const fetcher = useFetcher();
 
