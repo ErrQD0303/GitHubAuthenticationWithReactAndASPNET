@@ -57,6 +57,7 @@ public class GitHubController : ControllerBase
         {
             return Unauthorized();
         }
+        System.Console.WriteLine($"Access Token: {accessToken}");
 
         return Ok(new { accessToken });
     }

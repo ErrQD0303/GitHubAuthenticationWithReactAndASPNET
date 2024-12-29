@@ -36,7 +36,7 @@ class AuthenticateService {
   }
 
   async getAccessToken(): Promise<string | null> {
-    const cookieAccessToken = cookieStorageService.getCookie("accessToken");
+    const cookieAccessToken = cookieStorageService.getCookie("access_token");
     if (cookieAccessToken) {
       return cookieAccessToken;
     }
@@ -53,7 +53,7 @@ class AuthenticateService {
           },
         }
       );
-      return response.data.accessToken;
+      return JSON.parse(response.data).access_token;
     } catch {
       console.log("Unable to get access token");
       return null;
