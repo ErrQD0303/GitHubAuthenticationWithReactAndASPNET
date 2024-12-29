@@ -10,7 +10,7 @@ function LogOut() {
 
   React.useEffect(() => {
     navigate("/");
-  }, [navigate]);
+  });
 
   return <div>LogOut</div>;
 }
