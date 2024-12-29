@@ -6,7 +6,6 @@ import { useCookies } from "react-cookie";
 
 function App() {
   const [cookie, setCookie] = useCookies(["cookie-consent"]);
-
   if (!cookie["cookie-consent"]) {
     setCookie("cookie-consent", "true", {
       path: "/",
