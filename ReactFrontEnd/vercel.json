@@ -16,11 +16,5 @@
         }
       ]
     }
-  ],
-  "builds": [
-    {
-      "src": "index.html",
-      "use": "@vercel/node"
-    }
   ]
 }
