@@ -5,7 +5,6 @@ import { useEffect } from "react";
 
 function Home() {
   const { accessToken } = useLoaderData<IHomeLoader>();
-  console.log(accessToken);
 
   const [, setCookie] = useCookies(["access_token"]);
 

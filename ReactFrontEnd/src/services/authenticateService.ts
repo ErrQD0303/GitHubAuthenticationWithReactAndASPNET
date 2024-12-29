@@ -55,7 +55,7 @@ class AuthenticateService {
         }
       );
       return response.data.accessToken;
-    } catch (error) {
+    } catch {
       console.log("Unable to get access token");
       return null;
     }
