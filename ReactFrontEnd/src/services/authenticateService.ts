@@ -37,6 +37,7 @@ class AuthenticateService {
 
   async getAccessToken(): Promise<string | null> {
     const cookieAccessToken = cookieStorageService.getCookie("access_token");
+
     if (cookieAccessToken) {
       return cookieAccessToken;
     }
