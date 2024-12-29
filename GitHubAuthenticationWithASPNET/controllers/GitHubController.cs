@@ -61,6 +61,15 @@ public class GitHubController : ControllerBase
         return Ok(new { accessToken });
     }
 
+
+    [HttpGet("logout")]
+    public async Task<IActionResult> Logout()
+    {
+        await _cache.RemoveAsync("access_token");
+
+        return Ok(new { message = "Logged out successfully" });
+    }
+
     [HttpGet("login")]
     public async Task<IActionResult> Login()
     {
