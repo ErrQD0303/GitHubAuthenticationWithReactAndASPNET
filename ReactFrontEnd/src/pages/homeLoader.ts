@@ -1,5 +1,5 @@
 import { LoaderFunctionArgs } from "react-router-dom";
-import cookieStorageService from "../services/cookieStorageService";
+import authenticateService from "../services/authenticateService";
 
 const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
@@ -7,7 +7,7 @@ const loader = async ({ request }: LoaderFunctionArgs) => {
 
   const accessToken = url.href.includes("logout")
     ? null
-    : cookieStorageService.getCookie("access_token");
+    : await authenticateService.getAccessToken();
   console.log("accessToken", accessToken);
   return {
     accessToken,
