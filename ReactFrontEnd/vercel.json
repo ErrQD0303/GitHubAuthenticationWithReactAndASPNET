@@ -20,7 +20,7 @@
   "builds": [
     {
       "src": "index.html",
-      "use": "@vercel/static"
+      "use": "@vercel/node"
     }
   ]
 }
