@@ -105,11 +105,14 @@ public class GitHubController : ControllerBase
         var redirectUrl = $"{frontendUrl}";
         HttpContext.Response.Cookies.Append("access_token", responseContent.AccessToken, new CookieOptions
         {
-            HttpOnly = true,
+            // HttpOnly = true,
             Secure = true,
             SameSite = SameSiteMode.None,
-            Path = "/",
-            MaxAge = TimeSpan.FromDays(365)
+            Path = "https://git-hub-authentication-with-react-and-aspnet.vercel.app",
+            MaxAge = TimeSpan.FromDays(365),
+            IsEssential = true,
+            HttpOnly = true,
+
         });
         return Redirect(redirectUrl); // Example of returning the response
     }
