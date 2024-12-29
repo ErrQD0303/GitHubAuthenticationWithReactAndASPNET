@@ -16,17 +16,22 @@ namespace GitHubAuthenticationWithASPNET.controllers;
 [Route("api/[controller]")]
 public class GitHubController : ControllerBase
 {
-    private const string ClientId = "Ov23liV7SF34RfpFcbNf"; // Replace with your client ID
-    private const string ClientSecret = "5282cdd67271bd84a71a927645c1d0f545d11fdb"; // Replace with your client secret
-    private const string AuthorizeUrl = "https://github.com/login/oauth/authorize";
-    private const string TokenUrl = "https://github.com/login/oauth/access_token";
-    private const string ApiBaseUrl = "https://api.github.com/";
+    private readonly string ClientId; // Replace with your client ID
+    private readonly string ClientSecret; // Replace with your client secret
+    private readonly string AuthorizeUrl;
+    private readonly string TokenUrl;
+    private readonly string ApiBaseUrl;
 
     private readonly IConfiguration _configuration;
 
     public GitHubController(IConfiguration configuration)
     {
         _configuration = configuration;
+        ClientId = _configuration["CLIENT_ID"]!;
+        ClientSecret = _configuration["CLIENT_SECRET"]!;
+        AuthorizeUrl = _configuration["AUTHORIZE_URL"]!;
+        TokenUrl = _configuration["TOKEN_URL"]!;
+        ApiBaseUrl = _configuration["API_BASE_URL"]!;
     }
 
     private string GenerateRandomBytes()
@@ -88,17 +93,24 @@ public class GitHubController : ControllerBase
             ["grant_type"] = "authorization_code",
             ["client_id"] = ClientId,
             ["client_secret"] = ClientSecret,
-            ["redirect_uri"] = "https://localhost:8002/api/github/callback",
+            ["redirect_uri"] = $"{_configuration["BACKEND_URL"]}/api/github/callback",
             ["code"] = code
         }));
 
         var responseContent = TokenExtractor.ExtractGithubToken(await response.Content.ReadAsStringAsync());
 
         // Use the access token to fetch user data or complete your logic here
-        var frontendUrl = _configuration["FrontendUrl"] ?? "http://localhost:8000";
+        var frontendUrl = _configuration["FRONTEND_URL"] ?? _configuration["FrontendUrl"];
 
         var redirectUrl = $"{frontendUrl}";
-        HttpContext.Response.Cookies.Append("access_token", responseContent.AccessToken);
+        HttpContext.Response.Cookies.Append("access_token", responseContent.AccessToken, new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.None,
+            Path = "/",
+            MaxAge = TimeSpan.FromDays(365)
+        });
         return Redirect(redirectUrl); // Example of returning the response
     }
 

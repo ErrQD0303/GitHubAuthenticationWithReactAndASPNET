@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Builder;
 
+DotNetEnv.Env.Load();
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.AddEnvironmentVariables();
 
 builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
@@ -17,7 +20,8 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins(builder.Configuration["FrontendUrl"]! ?? "http://localhost:8000")
+        var frontendUrl = Environment.GetEnvironmentVariable("FRONTEND_URL") ?? builder.Configuration["FrontendUrl"];
+        policy.WithOrigins(frontendUrl!)
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();

@@ -31,3 +31,6 @@ E:\Udemy\GitHubAuthentication\GitHubAuthenticationWithASPNET\obj\Debug\net9.0\re
 E:\Udemy\GitHubAuthentication\GitHubAuthenticationWithASPNET\obj\Debug\net9.0\GitHubAuthenticationWithASPNET.pdb
 E:\Udemy\GitHubAuthentication\GitHubAuthenticationWithASPNET\obj\Debug\net9.0\GitHubAuthenticationWithASPNET.genruntimeconfig.cache
 E:\Udemy\GitHubAuthentication\GitHubAuthenticationWithASPNET\obj\Debug\net9.0\ref\GitHubAuthenticationWithASPNET.dll
+E:\Udemy\GitHubAuthentication\GitHubAuthenticationWithASPNET\bin\Debug\net9.0\DotNetEnv.dll
+E:\Udemy\GitHubAuthentication\GitHubAuthenticationWithASPNET\bin\Debug\net9.0\Sprache.dll
+E:\Udemy\GitHubAuthentication\GitHubAuthenticationWithASPNET\obj\Debug\net9.0\GitHubAuthenticationWithASPNET.sourcelink.json
