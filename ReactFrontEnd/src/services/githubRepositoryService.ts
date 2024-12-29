@@ -1,9 +1,8 @@
 import axios from "axios";
-import { GITHUB_API_URL_BASE } from "../shared/constants/api_URL_Constants";
 import cookieStorageService from "./cookieStorageService";
 
 class GitHubRepositoryService {
-  repositoryUrl = `${GITHUB_API_URL_BASE}/user/repos?sort=created&direction=desc`;
+  repositoryUrl = import.meta.env.VITE_REPOSITORY_URL ?? "";
 
   getAll = async (): Promise<object> => {
     try {
