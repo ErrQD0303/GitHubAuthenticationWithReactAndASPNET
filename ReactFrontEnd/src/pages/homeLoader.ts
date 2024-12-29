@@ -8,7 +8,6 @@ const loader = async ({ request }: LoaderFunctionArgs) => {
   const accessToken = isFromLogout
     ? null
     : await authenticateService.getAccessToken();
-  console.log("accessToken", accessToken);
   return {
     accessToken,
   };
