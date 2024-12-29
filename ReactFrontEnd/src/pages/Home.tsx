@@ -1,4 +1,3 @@
-import React from "react";
 import { useFetcher, useOutletContext } from "react-router-dom";
 import { IAppLayoutContext } from "../types/app";
 
