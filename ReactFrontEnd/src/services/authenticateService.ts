@@ -53,8 +53,7 @@ class AuthenticateService {
           },
         }
       );
-      console.log(response.data);
-      return response.data;
+      return response.data.accessToken;
     } catch {
       console.log("Unable to get access token");
       return null;
