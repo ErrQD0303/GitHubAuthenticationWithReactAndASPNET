@@ -1,10 +1,11 @@
-import { useFetcher, useLoaderData } from "react-router-dom";
+import { useFetcher, useLoaderData, useLocation } from "react-router-dom";
 import { IHomeLoader } from "../types/app";
 import { useCookies } from "react-cookie";
 import { useEffect } from "react";
 
 function Home() {
   const { accessToken } = useLoaderData<IHomeLoader>();
+  const location = useLocation();
 
   const [, setCookie] = useCookies(["access_token"]);
 
@@ -13,6 +14,14 @@ function Home() {
       setCookie("access_token", accessToken);
     }
   }, [setCookie, accessToken]);
+
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    if (!url.searchParams.has("from")) return;
+
+    url.searchParams.delete("from");
+    window.history.replaceState(null, "", url.toString());
+  }, [location.search]);
 
   const fetcher = useFetcher();
 
