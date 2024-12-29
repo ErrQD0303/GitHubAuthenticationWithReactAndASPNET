@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using GitHubAuthenticationWithASPNET.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
 
 namespace GitHubAuthenticationWithASPNET.controllers;
@@ -21,10 +22,11 @@ public class GitHubController : ControllerBase
     private readonly string AuthorizeUrl;
     private readonly string TokenUrl;
     private readonly string ApiBaseUrl;
+    private readonly IDistributedCache _cache;
 
     private readonly IConfiguration _configuration;
 
-    public GitHubController(IConfiguration configuration)
+    public GitHubController(IConfiguration configuration, IDistributedCache cache)
     {
         _configuration = configuration;
         ClientId = _configuration["CLIENT_ID"]!;
@@ -32,6 +34,7 @@ public class GitHubController : ControllerBase
         AuthorizeUrl = _configuration["AUTHORIZE_URL"]!;
         TokenUrl = _configuration["TOKEN_URL"]!;
         ApiBaseUrl = _configuration["API_BASE_URL"]!;
+        _cache = cache;
     }
 
     private string GenerateRandomBytes()
@@ -44,6 +47,18 @@ public class GitHubController : ControllerBase
         }
 
         return Convert.ToHexStringLower(randomBytes).Replace("-", "");
+    }
+
+    [HttpGet("access-token")]
+    public async Task<IActionResult> GetAccessToken()
+    {
+        var accessToken = await _cache.GetStringAsync("access_token");
+        if (accessToken == null)
+        {
+            return Unauthorized();
+        }
+
+        return Ok(new { accessToken });
     }
 
     [HttpGet("login")]
@@ -84,6 +99,7 @@ public class GitHubController : ControllerBase
     [HttpGet("callback")]
     public async Task<IActionResult> Callback(string code, string state)
     {
+        HttpContext.Response.Cookies.Delete("access_token");  // Clear existing cookie if it exists
         // Validate the state parameter (optional)
         if (state != HttpContext.Session.GetString("state"))
         {
@@ -106,17 +122,20 @@ public class GitHubController : ControllerBase
         var frontendUrl = _configuration["FRONTEND_URL"] ?? _configuration["FrontendUrl"];
 
         var redirectUrl = $"{frontendUrl}";
-        HttpContext.Response.Cookies.Append("access_token", responseContent.AccessToken, new CookieOptions
+        await _cache.SetStringAsync("access_token", responseContent.AccessToken, new DistributedCacheEntryOptions
         {
-            // HttpOnly = true,
-            Secure = true,
-            SameSite = SameSiteMode.None,
-            MaxAge = TimeSpan.FromDays(30),
-            IsEssential = true,
-            HttpOnly = true,
-            Expires = DateTimeOffset.Now.AddDays(30)
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(30)
         });
-        Console.WriteLine("Access token: " + responseContent.AccessToken);
+        //         HttpContext.Response.Cookies.Append("access_token", responseContent.AccessToken, new CookieOptions
+        // {
+        //     // HttpOnly = true,
+        //     Secure = true,
+        //     SameSite = SameSiteMode.None,
+        //     MaxAge = TimeSpan.FromDays(30),
+        //     IsEssential = true,
+        //     HttpOnly = true,
+        //     Expires = DateTimeOffset.Now.AddDays(30)
+        // });
         return Redirect(redirectUrl); // Example of returning the response
     }
 

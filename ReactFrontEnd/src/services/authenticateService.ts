@@ -8,12 +8,30 @@ class AuthenticateService {
         withCredentials: true,
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
         },
       });
       return { type: "success", message: response.data };
     } catch (error) {
       return { type: "error", message: (error as Error).message };
+    }
+  }
+
+  async getAccessToken(): Promise<string | null> {
+    try {
+      const response = await axios.get(
+        import.meta.env.VITE_ACCESS_TOKEN_URL ?? "",
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data);
+      return response.data;
+    } catch {
+      console.log("Unable to get access token");
+      return null;
     }
   }
 }

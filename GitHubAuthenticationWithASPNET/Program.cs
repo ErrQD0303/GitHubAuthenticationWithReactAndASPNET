@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
+using StackExchange.Redis;
 
 DotNetEnv.Env.Load();
 var builder = WebApplication.CreateBuilder(args);
@@ -43,7 +45,11 @@ var env = builder.Environment;
 
 builder.Services.AddControllers();
 builder.Services.AddHttpClient();
-builder.Services.AddDistributedMemoryCache();
+// builder.Services.AddDistributedMemoryCache();
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = $"{builder.Configuration["REDIS_HOST"]}:{builder.Configuration["REDIS_PORT"]},password={builder.Configuration["REDIS_PASSWORD"]},user={builder.Configuration["REDIS_USER"]}";
+});
 builder.Services.AddSession(options =>
 {
     options.Cookie.Name = "Github.Session";

@@ -1,8 +1,8 @@
-import cookieStorageService from "./services/cookieStorageService";
+import authenticateService from "./services/authenticateService";
 
 const loader = async () => {
   return {
-    accessToken: cookieStorageService.getCookie("access_token"),
+    accessToken: authenticateService.getAccessToken(),
   };
 };
 
