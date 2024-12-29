@@ -5,8 +5,8 @@ import { useCookies } from "react-cookie";
 function LogOut() {
   const navigate = useNavigate();
 
-  const [, , removeCookie] = useCookies(["accessToken"]);
-  removeCookie("accessToken");
+  const [, , removeCookie] = useCookies(["access_token"]);
+  removeCookie("access_token");
 
   React.useEffect(() => {
     navigate("/");
