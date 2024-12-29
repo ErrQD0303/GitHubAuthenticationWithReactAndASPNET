@@ -1,15 +1,18 @@
 import React from "react";
-import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import authenticateService from "../services/authenticateService";
 
 function LogOut() {
-  const [, , removeCookie] = useCookies(["access_token"]);
   const navigate = useNavigate();
-  removeCookie("access_token");
+
+  React.useEffect(() => {
+    authenticateService.logout();
+  }, []);
 
   React.useEffect(() => {
     navigate("/");
-  });
+  }, [navigate]);
+
   return <div>LogOut</div>;
 }
 
