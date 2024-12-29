@@ -8,7 +8,7 @@ function LogOut() {
   const [, , removeCookie] = useCookies(["access_token"]);
   useEffect(() => {
     removeCookie("access_token");
-    navigate("/", { state: { from: "logout" } });
+    navigate("/?from=logout");
   }, [removeCookie, navigate]);
 
   return <div>LogOut</div>;
