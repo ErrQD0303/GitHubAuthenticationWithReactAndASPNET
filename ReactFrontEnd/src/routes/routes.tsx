@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { AppLayout, Error, Home, LogOut, Repos } from "../LazyComponents";
-import appLoader from "../appLoader";
+import homeLoader from "../pages/homeLoader";
 import homeAction from "../pages/homeAction";
 import reposLoader from "../pages/reposLoader";
 
@@ -8,7 +8,7 @@ export const routes = [
   {
     element: <AppLayout />,
     errorElement: <Error />,
-    loader: appLoader,
+    loader: homeLoader,
     children: [
       {
         path: "/",

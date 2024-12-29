@@ -1,5 +1,5 @@
 import { LoaderFunctionArgs } from "react-router-dom";
-import cookieStorageService from "./services/cookieStorageService";
+import cookieStorageService from "../services/cookieStorageService";
 
 const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
