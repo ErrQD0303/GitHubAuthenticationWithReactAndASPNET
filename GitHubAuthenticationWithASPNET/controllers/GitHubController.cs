@@ -111,7 +111,6 @@ public class GitHubController : ControllerBase
             Path = "/",
             MaxAge = TimeSpan.FromDays(365),
             IsEssential = true,
-
         });
         return Redirect(redirectUrl); // Example of returning the response
     }
