@@ -4,7 +4,7 @@ import authenticateService from "../services/authenticateService";
 const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
   const isFromLogout = url.searchParams.get("from") === "logout";
-  console.log(url.searchParams.get("from"));
+  console.log(url);
   const accessToken = isFromLogout
     ? null
     : await authenticateService.getAccessToken();
