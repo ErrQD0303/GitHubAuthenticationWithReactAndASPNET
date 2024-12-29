@@ -8,6 +8,7 @@ class AuthenticateService {
         withCredentials: true,
         headers: {
           "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
         },
       });
       return { type: "success", message: response.data };

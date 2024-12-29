@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GitHubAuthenticationWithASPNET")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8616e11a34838dce03d693c0d677df5ea0269f41")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+80d0291ee0350666a55531bdba305ffe66f62dd9")]
 [assembly: System.Reflection.AssemblyProductAttribute("GitHubAuthenticationWithASPNET")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GitHubAuthenticationWithASPNET")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
