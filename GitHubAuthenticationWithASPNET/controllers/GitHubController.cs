@@ -108,10 +108,9 @@ public class GitHubController : ControllerBase
             // HttpOnly = true,
             Secure = true,
             SameSite = SameSiteMode.None,
-            Path = "https://git-hub-authentication-with-react-and-aspnet.vercel.app",
+            Path = "/",
             MaxAge = TimeSpan.FromDays(365),
             IsEssential = true,
-            HttpOnly = true,
 
         });
         return Redirect(redirectUrl); // Example of returning the response
