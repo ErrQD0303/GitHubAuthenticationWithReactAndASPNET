@@ -21,6 +21,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend", policy =>
     {
         var frontendUrl = Environment.GetEnvironmentVariable("FRONTEND_URL") ?? builder.Configuration["FrontendUrl"];
+        System.Console.WriteLine($"FRONTEND_URL: {frontendUrl}");
         policy.WithOrigins(frontendUrl!)
             .AllowAnyHeader()
             .AllowAnyMethod()
