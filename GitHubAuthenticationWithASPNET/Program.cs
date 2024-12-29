@@ -30,7 +30,7 @@ builder.Services.AddCors(options =>
 
     options.AddPolicy("AllowLocalhost", policy =>
     {
-        var frontendUrl = Environment.GetEnvironmentVariable("FRONTEND_URL") ?? builder.Configuration["FrontendUrl"];
+        var frontendUrl = builder.Configuration["FrontendUrl"];
         System.Console.WriteLine($"FRONTEND_URL: {frontendUrl}");
         policy.WithOrigins(frontendUrl!)
             .AllowAnyHeader()
@@ -58,6 +58,7 @@ var app = builder.Build();
 
 
 app.UseCors("AllowFrontend");
+app.UseCors("AllowLocalhost");
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseSession();

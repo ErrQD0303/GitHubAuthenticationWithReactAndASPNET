@@ -49,9 +49,13 @@ public class GitHubController : ControllerBase
     [HttpGet("login")]
     public async Task<IActionResult> Login()
     {
+        // Delete the existing access_token cookie if it exists
+        HttpContext.Response.Cookies.Delete("access_token");
+
         var client = new HttpClient();
         var state = GenerateRandomBytes();
         HttpContext.Session.SetString("state", state);
+
         var parameters = new Dictionary<string, string>
         {
             ["response_type"] = "code",
@@ -108,10 +112,10 @@ public class GitHubController : ControllerBase
             // HttpOnly = true,
             Secure = true,
             SameSite = SameSiteMode.None,
-            Path = "/",
-            MaxAge = TimeSpan.FromDays(365),
+            MaxAge = TimeSpan.FromDays(30),
             IsEssential = true,
         });
+        Console.WriteLine("Access token: " + responseContent.AccessToken);
         return Redirect(redirectUrl); // Example of returning the response
     }
 
