@@ -3,7 +3,6 @@ import { IReposLoader } from "../types/repos";
 
 function Repos() {
   const { repos } = useLoaderData() as IReposLoader;
-  console.log(repos.length);
   return (
     <div>
       {repos && repos.length > 0 ? (
