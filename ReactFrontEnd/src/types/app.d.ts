@@ -1,9 +1,9 @@
 // ../types/app.d.ts
 
-export interface IAppLoader {
+export interface IHomeLoader {
   accessToken: string | null;
 }
 
-export interface IAppLayoutContext {
-  appLoader: IAppLoader;
+export interface IHomeLoaderContext {
+  appLoader: IHomeLoader;
 }
