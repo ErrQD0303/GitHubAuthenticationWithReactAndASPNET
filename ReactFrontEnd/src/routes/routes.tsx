@@ -8,12 +8,12 @@ export const routes = [
   {
     element: <AppLayout />,
     errorElement: <Error />,
-    loader: homeLoader,
     children: [
       {
         path: "/",
         element: <Home />,
         errorElement: <Error />,
+        loader: homeLoader,
         action: homeAction,
       },
       {
