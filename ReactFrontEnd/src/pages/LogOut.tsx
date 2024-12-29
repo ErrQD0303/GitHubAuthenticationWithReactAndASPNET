@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import authenticateService from "../services/authenticateService";
 import { useCookies } from "react-cookie";
 
 function LogOut() {
