@@ -1,4 +1,5 @@
 import axios from "axios";
+import cookieStorageService from "./cookieStorageService";
 
 class AuthenticateService {
   async login(): Promise<object> {
@@ -35,6 +36,11 @@ class AuthenticateService {
   }
 
   async getAccessToken(): Promise<string | null> {
+    const cookieAccessToken = cookieStorageService.getCookie("accessToken");
+    if (cookieAccessToken) {
+      return cookieAccessToken;
+    }
+
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_BACKEND_URL}${
